@@ -1,28 +1,33 @@
-let currentInput = '';
+let equationDisplay = '';
+let resultDisplay = '';
 let currentOperator = '';
 let firstOperand = '';
 let result = '0';
+let currentInput = '';
 
 function appendNumber(number) {
     currentInput += number;
-    updateDisplay();
+    equationDisplay += number; 
+    resultDisplay = currentInput || result;
+    updateDisplays();
     console.log('Appended Number:', number);
 }
 
 function appendDecimal() {
-    if (!currentInput.includes('.')) {
-        currentInput += '.';
-        updateDisplay();
+    if (!equationDisplay.includes('.')) {
+        equationDisplay += '.';
+        resultDisplay = currentInput || result;
+        updateDisplays();
         console.log('Appended Decimal');
     }
 }
 
 function appendOperator(operator) {
-    if (currentInput !== '') {
+    if (equationDisplay !== '') {
         if (firstOperand === '') {
-            firstOperand = currentInput;
+            firstOperand = equationDisplay;
             result = firstOperand;
-            currentInput = '';
+            equationDisplay = '';
             currentOperator = operator;
         } else {
             calculate();
@@ -30,17 +35,17 @@ function appendOperator(operator) {
         }
         console.log('Appended Operator:', operator);
     } else if (operator === '-') {
-        currentInput += '-';
-        updateDisplay();
+        equationDisplay += '-';
+        resultDisplay = currentInput || result;
+        updateDisplays();
         console.log('Appended Operator:', operator);
     }
 }
 
-
 function calculate() {
-    if (currentInput !== '' && firstOperand !== '') {
+    if (equationDisplay !== '' && firstOperand !== '') {
         const operand1 = parseFloat(result);
-        const operand2 = parseFloat(currentInput);
+        const operand2 = parseFloat(equationDisplay);
 
         switch (currentOperator) {
             case '+':
@@ -57,22 +62,25 @@ function calculate() {
                 break;
         }
 
-        currentInput = '';
-        updateDisplay();
+        equationDisplay = '';
+        updateDisplays();
         console.log('Calculated Result:', result);
     }
 }
 
-function clearDisplay() {
+function clearDisplays() {
     firstOperand = '';
-    currentInput = '';
+    equationDisplay = '';
+    resultDisplay = '';
     currentOperator = '';
+    currentInput = '';
     result = '0';
-    updateDisplay();
-    console.log('Cleared display');
+    updateDisplays();
+    console.log('Cleared displays');
 }
 
-function updateDisplay() {
-    document.getElementById('display').value = currentInput || result;
-    console.log('Updated Display:', currentInput || result);
+function updateDisplays() {
+    document.getElementById('equation-display').value = equationDisplay;
+    document.getElementById('result-display').value = resultDisplay;
+    console.log('Updated Displays:', equationDisplay, resultDisplay);
 }
