@@ -9,7 +9,13 @@
 
 <body>
     <div class="calculator">
-        <input type="text" id="display" disabled>
+        <div>
+            <input type="text" id="equation-display" readonly>
+        </div>
+        <div>
+            <input type="text" id="result-display" readonly>
+        </div>
+        <div>
         <div class="buttons">
             <button onclick="appendNumber('1')">1</button>
             <button onclick="appendNumber('2')">2</button>
@@ -26,7 +32,7 @@
             <button onclick="appendOperator('-')">-</button>
             <button onclick="appendOperator('*')">*</button>
             <button onclick="appendOperator('/')">/</button>
-            <button onclick="clearDisplay()">C</button>
+            <button onclick="clearDisplays()">C</button>
             <button onclick="calculate()">=</button>
         </div>
     </div>

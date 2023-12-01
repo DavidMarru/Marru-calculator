@@ -10,15 +10,17 @@ body {
     text-align: center;
 }
 
-#display {
+#equation-display , #result-display {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 5px;
+    margin-top: 8px;
+
 }
 
 button {
