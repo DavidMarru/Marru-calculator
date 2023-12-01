@@ -1,7 +1,7 @@
-let currentInput = ``;
-let currentOperator = ``;
+let currentInput = '';
+let currentOperator = '';
 let firstOperand = '';
-let result = `0`;
+let result = '0';
 
 function appendNumber(number) {
     currentInput += number;
@@ -17,67 +17,62 @@ function appendDecimal() {
     }
 }
 
-function appendOperator(opertor) {
-    if(currentInput !== ``){
-        if(firstOperand === ``){
+function appendOperator(operator) {
+    if (currentInput !== '') {
+        if (firstOperand === '') {
             firstOperand = currentInput;
             result = firstOperand;
-            currentInput = ``;
-            currentOperator = opertor;
-        }else {
+            currentInput = '';
+            currentOperator = operator;
+        } else {
             calculate();
-            currentOperator = opertor;
+            currentOperator = operator;
         }
-        console.log(`Appended Opertor:` ,opertor)
+        console.log('Appended Operator:', operator);
+    } else if (operator === '-') {
+        currentInput += '-';
+        updateDisplay();
+        console.log('Appended Operator:', operator);
     }
 }
 
+
 function calculate() {
-    if (currentInput !== `` && firstOperand !== ``) {
+    if (currentInput !== '' && firstOperand !== '') {
         const operand1 = parseFloat(result);
         const operand2 = parseFloat(currentInput);
 
-    switch (currentOperator) {
-        case `+`:
-            result = (operand1 + operand2).toString();
-            break;
-        case `-`:
-            result = (operand1 - operand2).toString();
-            break;
-        case `*`:
-            result = (operand1 * operand2).toString();
-            break;
-        case `/`:
-            result = (operand1 / operand2).toString();
-            break;
-    }
+        switch (currentOperator) {
+            case '+':
+                result = (operand1 + operand2).toString();
+                break;
+            case '-':
+                result = (operand1 - operand2).toString();
+                break;
+            case '*':
+                result = (operand1 * operand2).toString();
+                break;
+            case '/':
+                result = (operand1 / operand2).toString();
+                break;
+        }
 
-    currentInput = ``;
-    updateDisplay();
-    console.log(`calculated result:`, result);
+        currentInput = '';
+        updateDisplay();
+        console.log('Calculated Result:', result);
     }
 }
 
-function clearDisplay(){
-    firstOperand = ``;
-    currentInput = ``;
-    currentOperator = ``;
+function clearDisplay() {
+    firstOperand = '';
+    currentInput = '';
+    currentOperator = '';
     result = '0';
     updateDisplay();
-    console.log(`Cleared display`);
+    console.log('Cleared display');
 }
 
 function updateDisplay() {
     document.getElementById('display').value = currentInput || result;
     console.log('Updated Display:', currentInput || result);
 }
-
-document.getElementById('decimalBtn').disabled = false; 
-
-document.getElementById('display').addEventListener('input', function() {
-    document.getElementById('decimalBtn').disabled = currentInput.includes('.');
-});
-
-
-
-
