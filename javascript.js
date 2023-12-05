@@ -1,10 +1,12 @@
 let currentInput = '';
 let currentOperator = '';
 let firstOperand = '';
-let result = '0';
+let result = '';
+let finalResult = ``;
 let decimalAdded = false;
 let equation = '';
 let shouldCalculate = false;
+let equal = `=`;
 
 function appendNumber(number) {
     currentInput += number;
@@ -27,6 +29,11 @@ function appendDecimal() {
 }
 
 function appendOperator(operator) {
+    if (result == `=`){
+        shouldCalculate = false;
+        equation = 
+
+    }
     if (currentInput !== '') {
         if (firstOperand === '') {
             firstOperand = currentInput;
@@ -51,7 +58,7 @@ function calculateLoop() {
 
 function calculate() {
     if (shouldCalculate && currentOperator !== '' && currentInput !== '') {
-        equation = `${equation} =`;
+        equation = `${equation} ${equil}`;
         document.getElementById('equationDisplay').value = equation;
 
         const operand1 = parseFloat(result);
@@ -74,8 +81,9 @@ function calculate() {
 
         currentInput = '';
         decimalAdded = false;  
+        finalResult = result;
         updateDisplay();
-        console.log('Calculated Result:', result);
+        console.log('Calculated Result:', finalResult);
         shouldCalculate = false;
     }
 }
@@ -85,7 +93,8 @@ function clearDisplay() {
     currentInput = '';
     currentOperator = '';
     equation = '';
-    result = '0';
+    result = ``;
+    finalResult = ``;
     decimalAdded = false; 
     shouldCalculate = false;
     updateDisplay();
@@ -95,7 +104,7 @@ function clearDisplay() {
 }
 
 function updateDisplay() {
-    document.getElementById('mainDisplay').value = result;
+    document.getElementById('mainDisplay').value = finalResult;
 }
 
 document.getElementById('equalsButton').addEventListener('click', calculateLoop);
