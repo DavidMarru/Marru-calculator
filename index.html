@@ -13,7 +13,7 @@
             <input type="text" id="equationDisplay" readonly>
         </div>
         <div>
-            <input type="text" id="mainDisplay" disabled>
+            <input type="text" id="mainDisplay" readonly>
         </div>
         <div class="buttons-cantainer">
             <button onclick="appendNumber('1')">1</button>
@@ -32,7 +32,7 @@
             <button onclick="appendOperator('*')">*</button>
             <button onclick="appendOperator('/')">/</button>
             <button onclick="clearDisplay()">C</button>
-            <button onclick="calculate()">=</button>
+            <button id="equalsButton" onclick="calculate()">=</button>
         </div>
     </div>
     
