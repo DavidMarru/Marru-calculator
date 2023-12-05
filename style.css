@@ -4,18 +4,18 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    font-size: 16px;
 }
 
 .calculator {
     text-align: center;
 }
 
-#equation-display , #result-display {
-    width: 100%;
+#equationDisplay , #minDisplay {
     margin-bottom: 2px;
 }
 
-.buttons {
+.buttons-cantainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 5px;
@@ -26,4 +26,20 @@ body {
 button {
     padding: 10px;
     font-size: 18px;
+}
+
+button:last-child {
+    background-color: rgb(132, 132, 132);
+}
+
+@media (min-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 1024px) {
+    body {
+        font-size: 20px;
+    }
 }
