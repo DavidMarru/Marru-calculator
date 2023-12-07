@@ -2,16 +2,18 @@ let currentInput = '';
 let currentOperator = '';
 let firstOperand = '';
 let result = '';
-let finalResult = '';
+let finalResult = ``;
 let decimalAdded = false;
 let equation = '';
 let shouldCalculate = false;
-let equal = '=';
+let equal = `=`;
 let finalEquation = ``;
+let history = ``;
 
 function appendNumber(number) {
     currentInput += number;
     equation += number;
+    history += number;
     updateDisplay();
     console.log(`History:`, equation);
     document.getElementById('equationDisplay').value = equation;
@@ -22,6 +24,7 @@ function appendDecimal() {
     if (!decimalAdded) {
         currentInput += '.';
         equation += `.`;
+        history += `.`;
         decimalAdded = true; 
         updateDisplay();
         document.getElementById('equationDisplay').value = equation;
@@ -30,8 +33,10 @@ function appendDecimal() {
 }
 
 function appendOperator(operator) {
-    if (shouldCalculate) {
+    if (result.includes(`=`)){
         shouldCalculate = false;
+        
+
     }
     if (currentInput !== '') {
         if (firstOperand === '') {
@@ -45,6 +50,7 @@ function appendOperator(operator) {
         }
         decimalAdded = false;  
         equation += operator;
+        history += operator;
         document.getElementById('equationDisplay').value = equation;
         console.log('Appended Operator:', operator);
     }
@@ -59,7 +65,7 @@ function calculate() {
     if (shouldCalculate && currentOperator !== '' && currentInput !== '') {
 
         finalEquation = equation + equal;
-
+        
         document.getElementById('equationDisplay').value = finalEquation;
 
         const operand1 = parseFloat(result);
@@ -85,7 +91,6 @@ function calculate() {
         finalResult = result;
         updateDisplay();
         console.log('Calculated Result:', finalResult);
-        console.log('Calculated Result:', finalEquation);
         shouldCalculate = false;
     }
 }
@@ -95,13 +100,14 @@ function clearDisplay() {
     currentInput = '';
     currentOperator = '';
     equation = '';
-    result = '';
-    finalResult = '';
+    result = ``;
+    finalResult = ``;
     decimalAdded = false; 
     shouldCalculate = false;
     updateDisplay();
     console.log('Cleared display');
     document.getElementById('equationDisplay').value = equation;
+
 }
 
 function updateDisplay() {
