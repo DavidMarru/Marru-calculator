@@ -2,26 +2,33 @@ let currentInput = '';
 let currentOperator = '';
 let firstOperand = '';
 let result = '';
-let finalResult = ``;
-let decimalAdded = false;
+let finalResult = '';
+let decimalAdded = true;
 let equation = '';
 let shouldCalculate = false;
-let equal = `=`;
+let equal = '=';
+let finalEquation = '';
+let equationHistory = '';
 
 function appendNumber(number) {
+    if (shouldCalculate) {
+        equation = result + currentOperator;
+        currentInput = '';
+        shouldCalculate = false;
+    }
+
     currentInput += number;
     equation += number;
     updateDisplay();
-    console.log(`History:`, equation);
     document.getElementById('equationDisplay').value = equation;
     console.log('Appended Number:', number);
 }
 
 function appendDecimal() {
-    if (!decimalAdded) {
+    if (decimalAdded) {
         currentInput += '.';
-        equation += `.`;
-        decimalAdded = true; 
+        equation += '.';
+        decimalAdded = false;
         updateDisplay();
         document.getElementById('equationDisplay').value = equation;
         console.log('Appended Decimal');
@@ -29,11 +36,6 @@ function appendDecimal() {
 }
 
 function appendOperator(operator) {
-    if (result == `=`){
-        shouldCalculate = false;
-        equation = 
-
-    }
     if (currentInput !== '') {
         if (firstOperand === '') {
             firstOperand = currentInput;
@@ -44,7 +46,7 @@ function appendOperator(operator) {
             calculate();
             currentOperator = operator;
         }
-        decimalAdded = false;  
+        decimalAdded = true;
         equation += operator;
         document.getElementById('equationDisplay').value = equation;
         console.log('Appended Operator:', operator);
@@ -57,9 +59,10 @@ function calculateLoop() {
 }
 
 function calculate() {
+    equationHistory = equation;
     if (shouldCalculate && currentOperator !== '' && currentInput !== '') {
-        equation = `${equation} ${equil}`;
-        document.getElementById('equationDisplay').value = equation;
+        finalEquation = equation + equal;
+        document.getElementById('equationDisplay').value = finalEquation;
 
         const operand1 = parseFloat(result);
         const operand2 = parseFloat(currentInput);
@@ -80,10 +83,11 @@ function calculate() {
         }
 
         currentInput = '';
-        decimalAdded = false;  
+        decimalAdded = true;
         finalResult = result;
         updateDisplay();
         console.log('Calculated Result:', finalResult);
+        console.log('equationHistory:', equationHistory);
         shouldCalculate = false;
     }
 }
@@ -93,17 +97,16 @@ function clearDisplay() {
     currentInput = '';
     currentOperator = '';
     equation = '';
-    result = ``;
-    finalResult = ``;
-    decimalAdded = false; 
+    result = '';
+    finalResult = '';
+    decimalAdded = true;
     shouldCalculate = false;
     updateDisplay();
     console.log('Cleared display');
-    document.getElementById('equationDisplay').value = equation;
-
 }
 
 function updateDisplay() {
+    document.getElementById('equationDisplay').value = equationHistory + currentInput;
     document.getElementById('mainDisplay').value = finalResult;
 }
 
