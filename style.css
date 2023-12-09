@@ -28,7 +28,7 @@ button {
     font-size: 18px;
 }
 
-button:last-child {
+button:-1 last-child {
     background-color: rgb(132, 132, 132);
 }
 
