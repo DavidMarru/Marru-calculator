@@ -1,6 +1,7 @@
 let currentInput = '';
 let currentOperator = '';
 let firstOperand = '';
+let previousInput = ``;
 let result = '';
 let finalResult = '';
 let decimalAdded = true;
@@ -11,11 +12,6 @@ let finalEquation = '';
 let equationHistory = '';
 
 function appendNumber(number) {
-    if (shouldCalculate) {
-        equation = result + currentOperator;
-        currentInput = '';
-        shouldCalculate = false;
-    }
 
     currentInput += number;
     equation += number;
@@ -36,22 +32,24 @@ function appendDecimal() {
 }
 
 function appendOperator(operator) {
-    if (currentInput !== '') {
-        if (firstOperand === '') {
+         if  (currentInput !== `` && firstOperand === '') {
             firstOperand = currentInput;
-            result = firstOperand;
+            previousInput = firstOperand;
             currentInput = '';
             currentOperator = operator;
         } else {
-            calculate();
+            calculateLoop();
             currentOperator = operator;
-        }
+            equation = finalResult;
+            previousInput = equation;
+            currentInput = '';
+        } 
         decimalAdded = true;
         equation += operator;
+        console.log(`checking updates:` ,equation);
         document.getElementById('equationDisplay').value = equation;
-        console.log('Appended Operator:', operator);
     }
-}
+
 
 function calculateLoop() {
     shouldCalculate = true;
@@ -59,13 +57,14 @@ function calculateLoop() {
 }
 
 function calculate() {
-    equationHistory = equation;
     if (shouldCalculate && currentOperator !== '' && currentInput !== '') {
         finalEquation = equation + equal;
         document.getElementById('equationDisplay').value = finalEquation;
 
-        const operand1 = parseFloat(result);
+        const operand1 = parseFloat(previousInput);
         const operand2 = parseFloat(currentInput);
+        console.log(`checking previous input:`, previousInput + currentInput);
+
 
         switch (currentOperator) {
             case '+':
@@ -81,14 +80,21 @@ function calculate() {
                 result = (operand1 / operand2).toString();
                 break;
         }
-
+        previousInput = finalResult;
+        equationHistory = equation;
         currentInput = '';
         decimalAdded = true;
         finalResult = result;
-        updateDisplay();
-        console.log('Calculated Result:', finalResult);
+        console.log('currentOperator:', currentOperator);        
+        currentOperator = ``;
+        console.log(`shouldCalculate:`,shouldCalculate == true);
+        document.getElementById('mainDisplay').value = finalEquation + finalResult;
+        document.getElementById('equationDisplay').value = ``;
+        console.log('final Result:', finalResult);
+        console.log(`previousInput`, previousInput);
         console.log('equationHistory:', equationHistory);
-        shouldCalculate = false;
+        console.log('finalEquation:', finalEquation);        
+
     }
 }
 
@@ -99,6 +105,7 @@ function clearDisplay() {
     equation = '';
     result = '';
     finalResult = '';
+    finalEquation = ``;
     decimalAdded = true;
     shouldCalculate = false;
     updateDisplay();
