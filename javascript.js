@@ -23,7 +23,7 @@ function appendNumber(number) {
 }
 
 function appendDecimal() {
-    if (equation == ``){
+    if (equation === `` || currentInput === ``){
         return
     }
     if (decimalAdded) {
@@ -103,7 +103,7 @@ function calculate() {
         console.log('currentOperator:', currentOperator);        
         currentOperator = ``;
         console.log(`shouldCalculate:`,shouldCalculate == true);
-        document.getElementById('mainDisplay').value = finalEquation + finalResult;
+        document.getElementById('mainDisplay').value = finalEquation + `  `+finalResult;
         document.getElementById('equationDisplay').value = ``;
         console.log('final Result:', finalResult);
         console.log(`previousInput`, previousInput);
