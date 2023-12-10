@@ -66,7 +66,7 @@ function calculateLoop() {
 
 function calculate() {
     if (shouldCalculate && currentOperator !== '' && currentInput !== '') {
-        finalEquation = equation + '=';
+        finalEquation = equation + ' =';
         document.getElementById('equationDisplay').value = finalEquation;
 
         const operand1 = parseFloat(previousInput);
@@ -103,7 +103,7 @@ function calculate() {
         console.log('currentOperator:', currentOperator);        
         currentOperator = ``;
         console.log(`shouldCalculate:`,shouldCalculate == true);
-        document.getElementById('mainDisplay').value = finalEquation + `  `+finalResult;
+        document.getElementById('mainDisplay').value = finalEquation + ` `+finalResult;
         document.getElementById('equationDisplay').value = ``;
         console.log('final Result:', finalResult);
         console.log(`previousInput`, previousInput);
